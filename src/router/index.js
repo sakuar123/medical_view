@@ -44,24 +44,25 @@ export const constantRoutes = [
       icon: 'link',
       needLogin: true
     },
-    children: [{
-      path: 'professional_index',
-      name: 'professional_index',
-      component: () => import('@/views/system/professional/index'),
-      meta: {
-        title: '职称管理',
-        needLogin: true
-      }
-    }, {
-      path: 'professional_save',
-      name: 'professional_save',
-      hidden: true,
-      component: () => import('@/views/system/professional/professional_save'),
-      meta: {
-        title: '新增图书',
-        needLogin: true
+    children: [
+      {
+        path: 'professional_index',
+        name: 'professional_index',
+        component: () => import('@/views/system/professional/index'),
+        meta: {
+          title: '职称管理',
+          needLogin: true
+        }
+      }, {
+        path: 'professional_save',
+        name: 'professional_save',
+        hidden: true,
+        component: () => import('@/views/system/professional/professional_save'),
+        meta: {
+          title: '新增图书',
+          needLogin: true
+        },
       },
-    },
       {
         path: 'professional_edit',
         name: 'professional_edit',
@@ -73,13 +74,71 @@ export const constantRoutes = [
         },
       },
       {
-        path: 'logo',
-        name: 'logo',
-        component: () => import('@/views/system/professional/index'),
+        path: 'announcement_index',
+        name: 'announcement_index',
+        component: () => import('@/views/system/announcement/announcement_index.vue'),
         meta: {
-          title: '查看logo',
+          title: '消息公告',
           needLogin: true
         }
+      },
+      {
+        path: 'announcement_save',
+        name: 'announcement_save',
+        component: () => import('@/views/system/announcement/announcement_save.vue'),
+        meta: {
+          title: '消息公告',
+          needLogin: true
+        },
+        hidden: true
+      },
+      {
+        path: 'announcement_edit',
+        name: 'announcement_edit',
+        component: () => import('@/views/system/announcement/announcement_edit.vue'),
+        meta: {
+          title: '消息公告',
+          needLogin: true
+        },
+        hidden: true
+      },
+      {
+        path: 'updatepwd',
+        name: 'updatepwd',
+        component: () => import('@/views/system/user/update_pwd.vue'),
+        meta: {
+          title: '修改密码',
+          needLogin: true
+        }
+      },
+      {
+        path: 'administrators',
+        name: 'administrators',
+        component: () => import('@/views/system/administrators/administrators_index.vue'),
+        meta: {
+          title: '管理员管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'administrators_save',
+        name: 'administrators_save',
+        component: () => import('@/views/system/administrators/administrators_save.vue'),
+        meta: {
+          title: '管理员管理',
+          needLogin: true
+        },
+        hidden: true
+      },
+      {
+        path: 'administrators_edit',
+        name: 'administrators_edit',
+        component: () => import('@/views/system/administrators/administrators_edit.vue'),
+        meta: {
+          title: '管理员管理',
+          needLogin: true
+        },
+        hidden: true
       },
     ]
   },

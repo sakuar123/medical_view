@@ -31,7 +31,6 @@
       >
         <el-table-column align="center" width="55" label="选择">
           <template slot-scope="scope">
-            <!-- 可以手动的修改label的值，从而控制选择哪一项 -->
             <el-radio class="radio" v-model="templateSelection" :label="scope.row.id">&nbsp;
             </el-radio>
           </template>

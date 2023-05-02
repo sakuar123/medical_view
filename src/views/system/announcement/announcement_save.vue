@@ -1,24 +1,27 @@
 <template>
-  <!--  <router-view/>-->
   <div id="bodys">
-    <h1>新增职称</h1>
+    <h1>新增消息公告</h1>
     <div id="box-card">
       <el-form :model="entity" ref="ruleForm" :rules="rules" label-width="100px">
-        <el-form-item label="职称名称" prop="professionalTitleName">
-          <el-input v-model="entity.professionalTitleName"></el-input>
+        <el-form-item label="标题" prop="announcementTitle">
+          <el-input v-model="entity.announcementTitle"></el-input>
         </el-form-item>
-        <el-form-item label="挂号费" prop="registrationFee">
-          <el-input v-model="entity.registrationFee"></el-input>
+        <el-form-item label="上传人" prop="uploadPerson">
+          <el-input v-model="entity.uploadPerson"></el-input>
         </el-form-item>
-        <el-form-item label="职称描述" prop="professionalTitleDesc">
-          <el-input v-model="entity.professionalTitleDesc"></el-input>
+        <el-form-item label="内容" prop="announcementContent">
+          <el-input type="textarea" v-model="entity.announcementContent"></el-input>
         </el-form-item>
-        <el-form-item label="是否启用">
+        <el-form-item label="状态">
           <el-switch
             v-model="value"
             active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
+        </el-form-item>
+        <el-form-item label="活动时间">
+          <el-date-picker type="date" placeholder="选择日期" v-model="entity.uploadDate"
+                          style="width: 100%;"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
@@ -30,23 +33,24 @@
 </template>
 
 <script>
-import {createProfessionalTitleInfo} from "../../../api/test";
+import {create} from "@/api/announcement";
 
 export default {
-  name: "professional_save",
+  name: "announcement_save",
   data() {
     return {
+      value1: "",
       entity: {
-        professionalTitleName: '',
-        registrationFee: '',
-        professionalTitleDesc: '',
-        status: 0
+        announcementTitle: "",
+        uploadPerson: "",
+        announcementContent: "",
+        announcementStatus: "",
+        uploadDate: "",
       },
       value: true,
       rules: {
-        professionalTitleName: [{required: true, message: '请输入活动名称', trigger: 'blur'}],
-        registrationFee: [{required: true, message: '请选择活动区域', trigger: 'change'}],
-        professionalTitleDesc: [{required: true, message: '请输入活动名称', trigger: 'blur'}]
+        announcementTitle: [{required: true, message: '请输入公告标题', trigger: 'blur'}],
+        announcementContent: [{required: true, message: '请输入公告内容', trigger: 'change'}],
       },
     }
   },
@@ -54,8 +58,8 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.entity.status = this.value ? 0 : 1;
-          createProfessionalTitleInfo(this.entity).then(res => {
+          this.entity.announcementStatus = this.value ? 0 : 1;
+          create(this.entity).then(res => {
             this.$alert(res.data);
             this.jumpTo();
           });
@@ -66,7 +70,7 @@ export default {
       });
     },
     jumpTo() {
-      this.$router.push("professional_index");
+      this.$router.push("announcement_index");
     }
   },
 }
