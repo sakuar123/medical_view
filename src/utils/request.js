@@ -1,7 +1,9 @@
 import axios from 'axios'
+import ElementUI from "element-ui";
+import router from "@/router";
 
 const request = axios.create({
-  baseURL: "https://api.apiopen.top/api",
+  // baseURL: "https://api.apiopen.top/api",
   timeout: 5000
 })
 
@@ -10,7 +12,7 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
   const token = sessionStorage.getItem('token');
-  if(token) {
+  if (token) {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
     // 设置请求头
     config.headers['token'] = token;
@@ -33,10 +35,21 @@ request.interceptors.response.use(
     if (typeof res === 'string') {
       res = res ? JSON.parse(res) : res
     }
+    if (res.code === 101 || res.code === 106 || res.code === 114 || res.code === 108) {
+      alert(res.message);
+       router.push("/");
+      return Promise.reject(new Error(res.message));
+    }
+    //请求接口返回得只要不是200都提示用户
+    if (res.code !== 200) {
+      ElementUI.Message({message: res.message, type: "error"});
+      return Promise.reject(new Error(res.message));
+    }
     return res;
   },
   error => {
-    console.log('err' + error) // for debug
+    // for debug
+    console.log('err' + error)
     return Promise.reject(error)
   }
 )

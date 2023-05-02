@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar"/>
 
-    <breadcrumb class="breadcrumb-container" />
+    <breadcrumb class="breadcrumb-container"/>
 
     <div class="right-menu">
       <el-button @click="logout">退出登录</el-button>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
@@ -31,6 +31,7 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
+      window.sessionStorage.removeItem("token");
       localStorage.removeItem('hasLogin')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
@@ -44,7 +45,7 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
 
   .hamburger-container {
     line-height: 46px;
@@ -52,7 +53,7 @@ export default {
     float: left;
     cursor: pointer;
     transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
       background: rgba(0, 0, 0, .025)

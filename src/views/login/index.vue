@@ -9,12 +9,12 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">后台管理系统</h3>
+        <h3 class="title">七尾医疗服务后台管理系统</h3>
       </div>
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="user"/>
         </span>
         <el-input
           id="account"
@@ -30,7 +30,7 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password" />
+          <svg-icon icon-class="password"/>
         </span>
         <el-input
           id="psw"
@@ -45,17 +45,18 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
         </span>
       </el-form-item>
 
+      <!--      :loading="loading"-->
       <el-button
         id="login_btn"
-        :loading="loading"
         type="primary"
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
-      >登录</el-button>
+      >登录
+      </el-button>
     </el-form>
     <div class="info" style="bottom: 40px;">Beta: 1.0</div>
     <div class="info">Technical Support: XXX</div>
@@ -64,6 +65,9 @@
 
 <script>
 import md5 from "js-md5";
+import {login} from "@/api/login";
+import {error} from "autoprefixer/lib/utils";
+
 export default {
   name: "Login",
   data() {
@@ -75,23 +79,23 @@ export default {
       }
     };
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error("The password can not be less than 6 digits"));
+      if (value.length === 0) {
+        callback(new Error("The password can not be empty"));
       } else {
         callback();
       }
     };
     return {
       loginForm: {
-        username: "admin",
-        password: "111111"
+        username: "",
+        password: ""
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", validator: validateUsername }
+          {required: true, trigger: "blur", validator: validateUsername}
         ],
         password: [
-          { required: true, trigger: "blur", validator: validatePassword }
+          {required: true, trigger: "blur", validator: validatePassword}
         ]
       },
       loading: false,
@@ -101,7 +105,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
       immediate: true
@@ -124,35 +128,40 @@ export default {
       //数据格式验证
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          localStorage.setItem("hasLogin", true);
-          this.$router.push({ path: "/" });
+          login({accout: this.loginForm.username, password: this.loginForm.password}).then(res => {
+            window.sessionStorage.setItem("token", res.data.token);
+            localStorage.setItem("hasLogin", true);
+            this.$router.push({path: "/home"});
+          }).catch(err => {
+            console.log(err);
+          });
         } else {
           console.log("验证失败");
         }
       });
       return 0;
       // 可自定义登录时的逻辑处理
-      this.req({
-        url: "login",
-        data: {
-          account: that.loginForm.username,
-          psw: md5(that.loginForm.password + "*/-sz") //对密码进行加盐md5处理
-        },
-        method: "POST"
-      }).then(
-        res => {
-          console.log("res :", res);
-          localStorage.setItem("hasLogin", true);
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
-          this.$router.push({ path: "/" });
-        },
-        err => {
-          console.log("err :", err);
-          this.passwordError = true;
-          this.loading = false;
-        }
-      );
+      // this.req({
+      //   url: "login",
+      //   data: {
+      //     account: that.loginForm.username,
+      //     psw: md5(that.loginForm.password + "*/-sz") //对密码进行加盐md5处理
+      //   },
+      //   method: "POST"
+      // }).then(
+      //   res => {
+      //     console.log("res :", res);
+      //     localStorage.setItem("hasLogin", true);
+      //     localStorage.setItem("token", res.data.token);
+      //     localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
+      //     this.$router.push({path: "/"});
+      //   },
+      //   err => {
+      //     console.log("err :", err);
+      //     this.passwordError = true;
+      //     this.loading = false;
+      //   }
+      // );
     }
   }
 };
@@ -168,6 +177,7 @@ export default {
   text-align: center;
   color: gainsboro;
 }
+
 $bg: #283443;
 $light_gray: #fff;
 $cursor: #fff;

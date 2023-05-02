@@ -5,17 +5,33 @@ import Layout from '@/layout'
 
 Vue.use(Router)
 
-export const constantRoutes = [{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-},
+export const constantRoutes = [
   {
     path: '/',
+    name: "index",
+    component: () => import('@/views/login/index'),
+    hidden: true,
+    meta: {
+      needLogin: false
+    }
+  },
+  {
+    path: '/login',
+    name: "login",
+    component: () => import('@/views/login/index'),
+    hidden: true,
+    meta: {
+      needLogin: false
+    }
+  },
+  {
+    path: '/home',
+    name: "home",
     component: Layout,
     meta: {
       title: '后台管理',
-      icon: 'table'
+      icon: 'table',
+      needLogin: true
     }
   },
   //系统管理
@@ -25,7 +41,8 @@ export const constantRoutes = [{
     redirect: '/system/professional',
     meta: {
       title: '系统管理',
-      icon: 'link'
+      icon: 'link',
+      needLogin: true
     },
     children: [{
       path: 'professional_index',
@@ -33,6 +50,7 @@ export const constantRoutes = [{
       component: () => import('@/views/system/professional/index'),
       meta: {
         title: '职称管理',
+        needLogin: true
       }
     }, {
       path: 'professional_save',
@@ -41,14 +59,26 @@ export const constantRoutes = [{
       component: () => import('@/views/system/professional/professional_save'),
       meta: {
         title: '新增图书',
+        needLogin: true
       },
     },
+      {
+        path: 'professional_edit',
+        name: 'professional_edit',
+        hidden: true,
+        component: () => import('@/views/system/professional/professional_edit'),
+        meta: {
+          title: '修改职称',
+          needLogin: true
+        },
+      },
       {
         path: 'logo',
         name: 'logo',
         component: () => import('@/views/system/professional/index'),
         meta: {
           title: '查看logo',
+          needLogin: true
         }
       },
     ]
@@ -57,12 +87,18 @@ export const constantRoutes = [{
   {
     path: '/404',
     component: () => import('@/views/404'),
-    hidden: true
+    hidden: true,
+    meta: {
+      needLogin: false
+    }
   },
   {
     path: '*',
     redirect: '/404',
-    hidden: true
+    hidden: true,
+    meta: {
+      needLogin: false
+    }
   }
 ]
 
