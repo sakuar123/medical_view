@@ -84,6 +84,7 @@ export default {
           this.$message({type: "error", message: "请选择至少一名角色"});
           return false;
         }
+        console.log(this.entity);
         this.entity.administratorStatus = this.value;
         this.entity.roleId = this.roleId;
         update(this.entity).then(res => {
