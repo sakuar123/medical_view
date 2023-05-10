@@ -3,18 +3,18 @@
     <div id="index-header">
       <el-row>
         <el-col :span="12">
-          <div class="grid-content bg-purple"><h1>管理员管理</h1></div>
+          <div class="grid-content bg-purple"><h1>角色管理</h1></div>
         </el-col>
         <el-col :span="12">
           <div class="grid-content-bg-purple-light">
             <el-button type="primary" @click="remove()" plain>删除</el-button>
-            <el-button type="primary" @click="jumpToSave()">新增管理员</el-button>
+            <el-button type="primary" @click="jumpToSave()">新增角色</el-button>
           </div>
         </el-col>
       </el-row>
     </div>
     <div id="index-search">
-      <el-input placeholder="请输入账号" v-model="keyWorld" class="input-with-select">
+      <el-input placeholder="请输入角色名称" v-model="keyWorld" class="input-with-select">
         <el-button slot="append" icon="el-icon-search" @click="search">搜索</el-button>
       </el-input>
     </div>
@@ -32,29 +32,25 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="administratorName"
-            label="用户名"
+            prop="roleName"
+            label="角色名称"
             width="100">
           </el-table-column>
           <el-table-column
-            prop="administratorAccount"
-            label="账号"
+            prop="roleCount"
+            label="角色下管理员人数"
             width="250">
           </el-table-column>
           <el-table-column
-            prop="roleName"
-            label="角色"
+            prop="roleDesc"
+            label="角色描述"
             width="150">
           </el-table-column>
           <el-table-column
-            prop="administratorPhone"
-            label="手机号码">
-          </el-table-column>
-          <el-table-column
-            prop="announcementContent"
+            prop="roleStatus"
             label="是否启用">
             <template slot-scope="scope">
-              <el-switch v-model="scope.row.administratorStatus"
+              <el-switch v-model="scope.row.roleStatus"
                          :active-value="0"
                          :inactive-value="1">
               </el-switch>
@@ -63,9 +59,6 @@
           <el-table-column
             prop="createDate"
             label="添加时间">
-            <template slot-scope="scope">
-              {{ parseTime(scope.row.createDate) }}
-            </template>
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -96,8 +89,7 @@
 </template>
 
 <script>
-import {reomve, search} from "@/api/administrators-info";
-import {parseTime} from "@/utils/index";
+import {reomve, search} from "@/api/roles-info";
 
 export default {
   name: "administrators_index",
@@ -133,15 +125,13 @@ export default {
       this.search();
     },
     handleClickEdit(rowId) {
-      // this.$alert(rowId);
-      this.$router.push({path: 'administrators_edit', query: {id: rowId}})
+      this.$router.push({path: 'roles_edit', query: {id: rowId}})
     },
     handleSelectionChange(rows) {
-      // this.$alert(rows.id);
       this.rowsId = rows.id;
     },
     jumpToSave() {
-      this.$router.push("administrators_save");
+      this.$router.push("roles_save");
     },
     remove() {
       if (this.rowsId === null || this.rowsId === '' || this.rowsId === undefined) {
@@ -169,9 +159,6 @@ export default {
           });
         });
       }
-    },
-    parseTime(createDate) {
-      return parseTime(createDate, "");
     }
   },
 }

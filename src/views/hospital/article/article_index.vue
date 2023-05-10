@@ -3,18 +3,18 @@
     <div id="index-header">
       <el-row>
         <el-col :span="12">
-          <div class="grid-content bg-purple"><h1>管理员管理</h1></div>
+          <div class="grid-content bg-purple"><h1>健康百科</h1></div>
         </el-col>
         <el-col :span="12">
           <div class="grid-content-bg-purple-light">
             <el-button type="primary" @click="remove()" plain>删除</el-button>
-            <el-button type="primary" @click="jumpToSave()">新增管理员</el-button>
+            <el-button type="primary" @click="jumpToSave()">新增文章</el-button>
           </div>
         </el-col>
       </el-row>
     </div>
     <div id="index-search">
-      <el-input placeholder="请输入账号" v-model="keyWorld" class="input-with-select">
+      <el-input placeholder="请输入标题" v-model="keyWorld" class="input-with-select">
         <el-button slot="append" icon="el-icon-search" @click="search">搜索</el-button>
       </el-input>
     </div>
@@ -32,39 +32,30 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="administratorName"
-            label="用户名"
-            width="100">
+            prop="articleTitle"
+            label="文章标题"
+            width="350"
+            :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
-            prop="administratorAccount"
-            label="账号"
+            label="略缩图"
             width="250">
-          </el-table-column>
-          <el-table-column
-            prop="roleName"
-            label="角色"
-            width="150">
-          </el-table-column>
-          <el-table-column
-            prop="administratorPhone"
-            label="手机号码">
-          </el-table-column>
-          <el-table-column
-            prop="announcementContent"
-            label="是否启用">
             <template slot-scope="scope">
-              <el-switch v-model="scope.row.administratorStatus"
-                         :active-value="0"
-                         :inactive-value="1">
-              </el-switch>
+              <el-popover placement="top-start" title="" trigger="hover">
+                <img :src="scope.row.articleThumbnail" alt="" style="width: 150px;height: 150px">
+                <img slot="reference" :src="scope.row.articleThumbnail" style="width: 30px;height: 30px">
+              </el-popover>
             </template>
           </el-table-column>
           <el-table-column
-            prop="createDate"
-            label="添加时间">
+            prop="articleAuthor"
+            label="作者"
+            width="250">
+          </el-table-column>
+          <el-table-column
+            label="操作时间">
             <template slot-scope="scope">
-              {{ parseTime(scope.row.createDate) }}
+              {{ parseTime(scope.row.articleUploadTime) }}
             </template>
           </el-table-column>
           <el-table-column
@@ -96,11 +87,13 @@
 </template>
 
 <script>
-import {reomve, search} from "@/api/administrators-info";
-import {parseTime} from "@/utils/index";
+import {search} from "@/api/article-info";
+import alert from "element-ui/packages/alert";
+import {reomve} from "@/api/test";
+import {parseTime} from "@/utils";
 
 export default {
-  name: "administrators_index",
+  name: "article_index",
   data() {
     return {
       // 搜索关键字
@@ -119,8 +112,9 @@ export default {
   },
   methods: {
     search() {
-      search({page: this.pageNum, size: this.pageSize, announcementTitle: this.keyWorld}).then(res => {
+      search({page: this.pageNum, size: this.pageSize, keyWorld: this.keyWorld}).then(res => {
         this.tableData = res.data.records;
+        // console.log(this.tableData);
         this.total = res.data.total;
       })
     },
@@ -134,14 +128,14 @@ export default {
     },
     handleClickEdit(rowId) {
       // this.$alert(rowId);
-      this.$router.push({path: 'administrators_edit', query: {id: rowId}})
+      this.$router.push({path: 'article_edit', query: {id: rowId}})
     },
     handleSelectionChange(rows) {
       // this.$alert(rows.id);
       this.rowsId = rows.id;
     },
     jumpToSave() {
-      this.$router.push("administrators_save");
+      this.$router.push("article_save");
     },
     remove() {
       if (this.rowsId === null || this.rowsId === '' || this.rowsId === undefined) {

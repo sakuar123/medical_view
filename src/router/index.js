@@ -34,6 +34,56 @@ export const constantRoutes = [
       needLogin: true
     }
   },
+  {
+    path: '/hospital',
+    component: Layout,
+    redirect: '/hospital/article/article_index.vue',
+    meta: {
+      title: '医院信息',
+      icon: 'link',
+      needLogin: true
+    },
+    children: [
+      {
+        path: 'article_index',
+        name: 'article_index',
+        component: () => import('@/views/hospital/article/article_index.vue'),
+        meta: {
+          title: '健康百科',
+          needLogin: true
+        }
+      },
+      {
+        path: 'article_save',
+        name: 'article_save',
+        component: () => import('@/views/hospital/article/article_save.vue'),
+        meta: {
+          title: '健康百科',
+          needLogin: true,
+        },
+        hidden: true,
+      },
+      {
+        path: 'article_edit',
+        name: 'article_edit',
+        component: () => import('@/views/hospital/article/article_edit.vue'),
+        meta: {
+          title: '健康百科',
+          needLogin: true,
+        },
+        hidden: true,
+      },
+      {
+        path: 'article_index',
+        name: 'article_index',
+        component: () => import('@/views/hospital/article/article_index.vue'),
+        meta: {
+          title: '医院导航',
+          needLogin: true
+        }
+      },
+    ],
+  },
   //系统管理
   {
     path: '/system',
@@ -136,6 +186,33 @@ export const constantRoutes = [
         component: () => import('@/views/system/administrators/administrators_edit.vue'),
         meta: {
           title: '管理员管理',
+          needLogin: true
+        },
+        hidden: true
+      },
+      {
+        path: 'roles_info',
+        name: 'roles_info',
+        component: () => import('@/views/system/role/roles_index.vue'),
+        meta: {
+          title: '角色管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'roles_save',
+        name: 'roles_save',
+        component: () => import('@/views/system/role/roles_save.vue'),
+        meta: {
+          needLogin: true
+        },
+        hidden: true
+      },
+      {
+        path: 'roles_edit',
+        name: 'roles_edit',
+        component: () => import('@/views/system/role/roles_edit.vue'),
+        meta: {
           needLogin: true
         },
         hidden: true
