@@ -74,13 +74,23 @@ export const constantRoutes = [
         hidden: true,
       },
       {
-        path: 'article_index',
-        name: 'article_index',
-        component: () => import('@/views/hospital/article/article_index.vue'),
+        path: 'hospital_navigation_index',
+        name: 'hospital_navigation_index',
+        component: () => import('@/views/hospital/hospital-navigation/hospital_navigation_index.vue'),
         meta: {
           title: '医院导航',
           needLogin: true
         }
+      },
+      {
+        path: 'hospital_navigation_save',
+        name: 'hospital_navigation_save',
+        component: () => import('@/views/hospital/hospital-navigation/hospital_navigation_save.vue'),
+        meta: {
+          title: '医院导航',
+          needLogin: true
+        },
+        hidden: true
       },
     ],
   },
