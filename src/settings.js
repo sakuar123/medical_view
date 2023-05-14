@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue+Element UI后台管理模板',
+  title: '七尾医疗服务后台管理系统',
 
   /**
    * @type {boolean} true | false

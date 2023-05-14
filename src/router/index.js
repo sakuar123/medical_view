@@ -92,6 +92,35 @@ export const constantRoutes = [
         },
         hidden: true
       },
+      {
+        path: 'department_index',
+        name: 'department_index',
+        component: () => import('@/views/hospital/department/department_index.vue'),
+        meta: {
+          title: '科室管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'department_save',
+        name: 'department_save',
+        component: () => import('@/views/hospital/department/department_save.vue'),
+        hidden: true,
+        meta: {
+          title: '科室管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'department_edit',
+        name: 'department_edit',
+        component: () => import('@/views/hospital/department/department_edit.vue'),
+        hidden: true,
+        meta: {
+          title: '科室管理',
+          needLogin: true
+        }
+      }
     ],
   },
   //系统管理

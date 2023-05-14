@@ -8,6 +8,13 @@ export function search(parma) {
   });
 }
 
+export function getHospitalNavigationInfo() {
+  return new request({
+    url: "/medical/hospital-navigation-info/getHospitalNavigationInfo",
+    method: "get"
+  });
+}
+
 export function getRegion() {
   return new request({
     url: "/medical/region-info/",
