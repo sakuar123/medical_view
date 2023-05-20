@@ -46,3 +46,8 @@ export function removeProfessionalTitleInfo(parma) {
   })
 }
 
+export function getProfessionalTitleInfos() {
+  return request({
+    url: '/medical/professional-title-info/getProfessionalTitleInfo', method: 'get'
+  })
+}

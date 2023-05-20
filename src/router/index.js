@@ -120,7 +120,26 @@ export const constantRoutes = [
           title: '科室管理',
           needLogin: true
         }
-      }
+      },
+      {
+        path: 'doctor_index',
+        name: 'doctor_index',
+        component: () => import('@/views/hospital/doctor/doctor_index.vue'),
+        meta: {
+          title: '医生管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'doctor_save',
+        name: 'doctor_save',
+        component: () => import('@/views/hospital/doctor/doctor_save.vue'),
+        meta: {
+          title: '医生管理',
+          needLogin: true
+        },
+        hidden: true
+      },
     ],
   },
   //系统管理
