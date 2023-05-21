@@ -140,6 +140,96 @@ export const constantRoutes = [
         },
         hidden: true
       },
+      {
+        path: 'combo_type_index',
+        name: 'combo_type_index',
+        component: () => import('@/views/hospital/combo-type/combo_type_index.vue'),
+        hidden: true,
+        meta: {
+          title: '套餐类型管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'combo_type_save',
+        name: 'combo_type_save',
+        component: () => import('@/views/hospital/combo-type/combo_type_save.vue'),
+        hidden: true,
+        meta: {
+          title: '套餐类型管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'combo_type_edit',
+        name: 'combo_type_edit',
+        component: () => import('@/views/hospital/combo-type/combo_type_edit.vue'),
+        hidden: true,
+        meta: {
+          title: '套餐类型管理',
+          needLogin: true
+        }
+      },
+      {
+        path: 'medical_examination_index',
+        name: 'medical_examination_index',
+        component: () => import('@/views/hospital/medical-examination/medical_examination_index.vue'),
+        hidden: true,
+        meta: {
+          title: '体检项目信息',
+          needLogin: true
+        }
+      },
+      {
+        path: 'medical_examination_save',
+        name: 'medical_examination_save',
+        component: () => import('@/views/hospital/medical-examination/medical_examination_save.vue'),
+        hidden: true,
+        meta: {
+          title: '体检项目信息',
+          needLogin: true
+        }
+      },
+      {
+        path: 'medical_examination_edit',
+        name: 'medical_examination_edit',
+        component: () => import('@/views/hospital/medical-examination/medical_examination_edit.vue'),
+        hidden: true,
+        meta: {
+          title: '体检项目信息',
+          needLogin: true
+        }
+      },
+      {
+        path: 'medical_combo_index',
+        name: 'medical_combo_index',
+        component: () => import('@/views/hospital/medical_combo/medical_combo_index.vue'),
+        hidden: false,
+        meta: {
+          title: '体检套餐',
+          needLogin: true
+        }
+      },
+      {
+        path: 'medical_combo_table',
+        name: 'medical_combo_table',
+        component: () => import('@/views/hospital/medical_combo/medical_combo_table.vue'),
+        hidden: true,
+        meta: {
+          title: '体检套餐1',
+          needLogin: true
+        }
+      },
+      {
+        path: 'medical_combo_save',
+        name: 'medical_combo_save',
+        component: () => import('@/views/hospital/medical_combo/medical_combo_save.vue'),
+        hidden: true,
+        meta: {
+          title: '体检套餐1',
+          needLogin: true
+        }
+      },
     ],
   },
   //系统管理
